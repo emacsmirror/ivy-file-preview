@@ -3,7 +3,15 @@ EASK ?= eask
 
 .PHONY: clean checkdoc lint package install compile test
 
-ci: clean package install compile test
+ci: clean package install compile
+
+build-source:
+	@echo "Building source..."
+	$(EASK) load "scripts/generate-source.el" --allow-error
+
+generate_badges_system:
+	@echo "Generating system badges.."
+	@$(EASK) load "scripts/generate-badges-system.el"
 
 package:
 	@echo "Packaging..."
@@ -30,4 +38,4 @@ lint:
 	$(EASK) lint package
 
 clean:
-	$(EASK) clean-all
+	$(EASK) clean all
